@@ -1,12 +1,8 @@
 from pathlib import Path
-import environ
-
-env = environ.Env()
-environ.Env.read_env('.passwords')
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = env('DJANGO_KEY')
+SECRET_KEY = 'django-insecure-r@b1z*zejnhv=dnn8$^uaa21ww^l82krg3g3pn50u+mf_t&u43'
 
 DEBUG = True
 
