@@ -1,2 +1,30 @@
-{% extends "base.html" %}
-{% block login_user %}{{login_form}}{% endblock login_user %}
+{% extends "index.html" %}
+{% block login %}
+
+<form class="form-signin" action="{% url 'user_login' %}" method="post" name="form">
+{% csrf_token %}
+          <label>{{login_form.errors.username}}</label>
+          <label for=username>Имя пользователя</label>
+          <input class="form-styling" type="text" name="username" placeholder=""/>
+          <label for="password"> Пароль</label>
+          <input class="form-styling" type="password" name="password" placeholder=""/>
+          <input type="checkbox" id="checkbox"/>
+          <label for="checkbox" ><span class="ui"></span>Запомнить меня (пока не работает)</label>
+          <input class="btn-animate" type="submit" method="post" value="ВОЙТИ">
+</form>
+{% endblock login %}
+
+{% block register %}
+<form class="form-signup" action="{% url 'user_login' %}" method="post" name="form">
+{% csrf_token %}
+          <label for="username">Имя пользователя</label>
+          <input class="form-styling" type="text" name="username" placeholder=""/>
+          <label for="email">Email</label>
+          <input class="form-styling" type="text" name="email" placeholder=""/>
+          <label for="password">Password</label>
+          <input class="form-styling" type="password" name="password" placeholder=""/>
+          <label for="password_repeat">Confirm password</label>
+          <input class="form-styling" type="password" name="password_repeat" placeholder=""/>
+          <input class="btn-animate" type="submit" method="post" value="Регистрация">
+</form>
+{% endblock register %}
