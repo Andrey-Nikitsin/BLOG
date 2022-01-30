@@ -1,9 +1,8 @@
 from django.urls import path
-from users.views import Multiform, hello, index
+from users.views import login_user, hello, register
 
 urlpatterns = [
-    path('', index),
-    path('login/', Multiform, name= 'user_login'),
+    path('', login_user, name = 'user_login'),
     path('hello/', hello, name = 'hello' ),
-    # path('register/', register, name = 'registration')
+    path('register/', register, name = 'registration')
 ]

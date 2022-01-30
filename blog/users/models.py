@@ -12,8 +12,7 @@ class Clients(AbstractUser):
         verbose_name_plural = 'Clients'
 
     def __str__(self):
-        return self.username 
-        # + " | "  + self.phone 
+        return self.username + " | "  + self.phone 
 
             
 

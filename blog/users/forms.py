@@ -1,3 +1,4 @@
+
 from django import forms
 from django.contrib.auth import login, authenticate
 from django.http import request
@@ -18,17 +19,17 @@ class loginForm(forms.Form):
     )
 
 
-    # def clean(self):
-    #     user  = authenticate(**dict(self.cleaned_data))
-    #     if user is not None:
-    #         self.user = user
-    #         return self.cleaned_data
-    #     else:
-    #         self.add_error('username', 'неверное имя пользователя или пароль')
-    #         raise forms.ValidationError('User not found')
+    def clean(self):
+        user  = authenticate(**dict(self.cleaned_data))
+        if user is not None:
+            self.user = user
+            return self.cleaned_data
+        else:
+            self.add_error('username', 'неверное имя пользователя или пароль')
+            raise forms.ValidationError('User not found')
     
-    # def auth(self, request):
-    #     login(request, self.user)
+    def auth(self, request):
+        login(request, self.user)
 
 class Register_user(forms.ModelForm):
     password_repeat = forms.CharField(
@@ -44,5 +45,10 @@ class Register_user(forms.ModelForm):
                 attrs= {'class' : 'input', 'plaseholder' : 'имя пользователя'}
             )
         }
-    
 
+    def clean(self):
+        if Register_user.is_valid:
+            return self.cleaned_data
+        else:
+            self.add_error('username', 'fghdjkgfdgsafEGATRHD')
+            raise forms.ValidationError('User not found')
