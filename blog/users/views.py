@@ -1,5 +1,4 @@
 from distutils import dist
-from unicodedata import name
 from django.shortcuts import render
 from django.template import context
 from users.forms import loginForm, Register_user
@@ -11,29 +10,52 @@ from django.contrib.auth import logout
 
 
 
-def login_user(request):
+
+
+def Multiform(request):
     if request.method == 'POST':
+        Register_form = Register_user(request.POST)
         login_form = loginForm(request.POST)
-        if login_form.is_valid():
+        if Register_form.is_valid():
+            Register_form.save()
+        elif login_form.is_valid:
             user = authenticate(username =request.POST['username'], password=request.POST['password'])
             if user is not None:
                 login(request, user)
-                return redirect("hello")        
-    else:
-        login_form = loginForm()
-
-    return render(request, 'login.html', {'login_form' : login_form})
-
-
-def register(request):
-    if request.method == 'POST':
-        Register_form = Register_user(request.POST)
-        if Register_form.is_valid():
-            Register_form.save()
-            return redirect("user_login")
+                return redirect("hello")
     else:
         Register_form = Register_user()
-    return render(request, 'register.html', {'Register_form' : Register_form})            
+        login_form = loginForm()
+
+    return render(request, 'login.html', {'Register_form' : Register_form, 'login_form' : login_form})  
+
+# def login_user(request):
+#     if request.method == 'POST':
+#         login_form = loginForm(request.POST)
+#         if login_form.is_valid():
+#             user = authenticate(username =request.POST['username'], password=request.POST['password'])
+#             if user is not None:
+#                 login(request, user)
+#                 return redirect("hello")        
+#     else:
+#         login_form = loginForm()
+
+#     return render(request, 'login.html', {'login_form' : login_form})
+
+
+# def register(request):
+#     print('register run')
+#     print(request)
+#     if request.method == 'POST':
+#         Register_form = Register_user(request.POST)
+#         print(request.POST)
+#         if Register_form.is_valid():
+#             print('form valid')
+#             Register_form.save()
+#             return redirect("user_login")
+#     else:
+#         Register_form = Register_user()
+#     return render(request, 'register.html', {'Register_form' : Register_form})            
 
 
 def index(request): 
